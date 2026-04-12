@@ -1,0 +1,6 @@
+node_modules/
+nextapp/node_modules/
+nextapp/.next/
+.env
+package-lock.json
+.DS_Store

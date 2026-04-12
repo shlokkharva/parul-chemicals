@@ -1,0 +1,96 @@
+<%- include('partials/header') %>
+
+<div style="background:var(--grad-hero);padding:calc(var(--header-h) + var(--space-16)) 0 var(--space-16);position:relative;overflow:hidden">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="container" style="position:relative;z-index:2;text-align:center">
+    <span class="section-label" style="justify-content:center">Certifications &amp; Compliance</span>
+    <h1 style="font-family:var(--font-serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:800;color:#F1F5FF;letter-spacing:-.02em;margin-bottom:var(--space-5)">Built on Global<br/>Quality Standards</h1>
+    <p style="font-size:var(--text-lg);color:var(--color-text-on-dark-muted);max-width:560px;margin:0 auto">
+      Parul Chemicals is committed to offering high-quality and innovative plasticizers to enrich all forms of life — backed by internationally recognised certifications.
+    </p>
+  </div>
+  <div class="hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#ffffff"/></svg>
+  </div>
+</div>
+
+<!-- CERTS -->
+<section class="section">
+  <div class="container">
+    <div class="bento-grid">
+      <% [
+        {icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>',title:'GMP Certified',body:'All manufacturing facilities comply with Good Manufacturing Practice (GMP) guidelines ensuring product quality, safety and consistency in every batch.',badge:'WHO-GMP · Schedule-M'},
+        {icon:'<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',title:'MSDS Available',body:'Safety Data Sheets available for all products. Full toxicological profile, handling, storage and disposal guidance as per international standards.',badge:'TEC · DEP'},
+        {icon:'<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>',title:'Global Compliance',body:'Products conform to BP, USP, IP, EP and Food Grade pharmacopeial standards. Reviewed and compliant with regulations across 25+ countries.',badge:'BP · USP · IP · EP'}
+      ].forEach(function(c,i){ %>
+      <div class="bento-card reveal reveal-delay-<%= i+1 %>" style="text-align:center">
+        <div class="bento-icon-wrap" style="margin:0 auto var(--space-5)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00A86B" stroke-width="2"><%- c.icon %></svg>
+        </div>
+        <h3 style="margin-bottom:var(--space-3)"><%= c.title %></h3>
+        <p><%= c.body %></p>
+        <div class="card-badge" style="margin:var(--space-4) auto 0;width:fit-content"><%= c.badge %></div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- MSDS DOWNLOADS -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <span class="section-label">Downloads</span>
+      <h2 class="section-title">Safety Data Sheets</h2>
+      <p class="section-desc centered">Official MSDS documents for regulatory, safety and handling compliance.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+      <% [
+        {name:'Triethyl Citrate (TEC)',abbr:'TEC',url:'https://parulchemicals.com/wp-content/uploads/2024/02/parul_chemical_msds.pdf',shelf:'24 months',cas:'77-93-0'},
+        {name:'Diethyl Phthalate (DEP)',abbr:'DEP',url:'https://parulchemicals.com/wp-content/uploads/2024/02/MSDS-DEP.pdf',shelf:'24 months',cas:'84-66-2'}
+      ].forEach(function(doc){ %>
+      <div class="bento-card reveal" style="display:flex;align-items:center;gap:var(--space-6)">
+        <div class="bento-icon-wrap" style="flex-shrink:0;width:64px;height:64px">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00A86B" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div style="flex:1">
+          <div class="product-name" style="font-size:var(--text-lg)"><%= doc.name %></div>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3)">CAS <%= doc.cas %> &middot; Shelf Life: <%= doc.shelf %></div>
+          <a href="<%= doc.url %>" target="_blank" class="btn btn-primary" style="padding:var(--space-2) var(--space-5);font-size:var(--text-sm)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download <%= doc.abbr %> MSDS
+          </a>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- PHARMACOPEIAL COMPLIANCE -->
+<section class="section">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <span class="section-label">Standards</span>
+      <h2 class="section-title">Pharmacopeial Compliance</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-4);text-align:center" class="reveal">
+      <% ['BP','USP','IP','EP','Food Grade'].forEach(function(std){ %>
+      <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6) var(--space-4)">
+        <div style="font-size:var(--text-2xl);font-weight:900;color:var(--color-primary);letter-spacing:-.04em;margin-bottom:var(--space-2)"><%= std %></div>
+        <div style="font-size:var(--text-xs);color:var(--color-text-muted);font-weight:600">Compliant</div>
+        <div style="width:32px;height:3px;background:var(--color-accent);border-radius:var(--radius-full);margin:var(--space-3) auto 0"></div>
+      </div>
+      <% }) %>
+    </div>
+
+    <div class="reveal" style="text-align:center;margin-top:var(--space-12)">
+      <a href="https://parulchemicals.in/declarations/" target="_blank" class="btn btn-primary btn-lg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        View All Declarations &amp; Certificates
+      </a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,133 @@
+<%- include('partials/header') %>
+
+<div style="background:var(--grad-hero);padding:calc(var(--header-h) + var(--space-16)) 0 var(--space-16);position:relative;overflow:hidden">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="container" style="position:relative;z-index:2;text-align:center">
+    <span class="section-label" style="justify-content:center">Why Parul Chemicals</span>
+    <h1 style="font-family:var(--font-serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:800;color:#F1F5FF;letter-spacing:-.02em;margin-bottom:var(--space-5)">Built on Science,<br/><em style="background:linear-gradient(135deg,#00C47D,#00E896);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Driven by Trust</em></h1>
+    <p style="font-size:var(--text-lg);color:var(--color-text-on-dark-muted);max-width:560px;margin:0 auto">Three pillars underpin every batch we produce — relentless innovation, uncompromising quality, and deep industry expertise.</p>
+  </div>
+  <div class="hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#ffffff"/></svg>
+  </div>
+</div>
+
+<!-- BENTO GRID -->
+<section class="section">
+  <div class="container">
+    <div class="bento-grid">
+      <!-- 1: Innovation -->
+      <div class="bento-card reveal reveal-delay-1">
+        <div class="bento-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00A86B" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <h3>Innovation-First R&amp;D</h3>
+        <p>Cutting-edge research and development. Tailored solutions to meet diverse industry needs. Continuous improvement and adaptation to new trends.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-3)">
+          <% ['Cutting-edge R&D lab','Tailored synthesis capabilities','Continuous regulatory adaptation'].forEach(function(f){ %>
+          <li style="display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--color-text-muted)">
+            <span style="color:var(--color-accent)">&#10003;</span> <%- f %>
+          </li>
+          <% }) %>
+        </ul>
+        <div class="tooltip-wrap" style="margin-top:var(--space-5)">
+          <span class="tooltip-trigger" tabindex="0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Tailored Synthesis
+          </span>
+          <div class="tooltip-box">
+            <strong>Tailored Synthesis Capabilities</strong><br/>
+            Custom molecular engineering from feedstock to final API-grade compound, with batch sizes from 50kg to 50MT.
+          </div>
+        </div>
+      </div>
+
+      <!-- 2: Quality -->
+      <div class="bento-card reveal reveal-delay-2">
+        <div class="bento-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00A86B" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Uncompromising Quality</h3>
+        <p>Compliance with global quality standards. Rigorous quality control and testing processes. Reliable and long-lasting product performance.</p>
+        <div class="progress-circle-wrap" id="gmp-progress">
+          <div class="progress-circle">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <circle class="progress-track" cx="40" cy="40" r="36"/>
+              <circle class="progress-fill" cx="40" cy="40" r="36"/>
+            </svg>
+            <div class="progress-label">100%</div>
+          </div>
+          <div class="progress-info">
+            <h4>100% GMP<br/>Compliance</h4>
+            <p>All facilities certified to WHO-GMP &amp; Schedule-M standards</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3: Expertise -->
+      <div class="bento-card reveal reveal-delay-3">
+        <div class="bento-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00A86B" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg>
+        </div>
+        <h3>Deep Industry Expertise</h3>
+        <p>Serving industries like agrochemicals, nutrition, and more. Strong global presence and customer base. Diverse product portfolio and industry expertise.</p>
+        <div class="badge-list" style="margin-top:var(--space-4)">
+          <span class="industry-badge badge-pharma">Pharma</span>
+          <span class="industry-badge badge-agro">Agrochemical</span>
+          <span class="industry-badge badge-nutr">Nutrition</span>
+          <span class="industry-badge badge-food">Food &amp; Bev</span>
+          <span class="industry-badge badge-cosm">Cosmetics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item reveal"><div class="stat-val">25<span>+</span></div><div class="stat-lbl">Countries Served</div><div class="stat-divider"></div></div>
+      <div class="stat-item reveal reveal-delay-1"><div class="stat-val">99<span>.9%</span></div><div class="stat-lbl">Average Purity</div><div class="stat-divider"></div></div>
+      <div class="stat-item reveal reveal-delay-2"><div class="stat-val">15<span>+</span></div><div class="stat-lbl">Years Excellence</div><div class="stat-divider"></div></div>
+      <div class="stat-item reveal reveal-delay-3"><div class="stat-val">100<span>%</span></div><div class="stat-lbl">GMP Compliance</div><div class="stat-divider"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT TEXT -->
+<section class="section section-alt">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-16);align-items:center">
+      <div class="reveal">
+        <span class="section-label">Our Mission</span>
+        <h2 class="section-title" style="margin-bottom:var(--space-5)">Global Innovative Solutions Provider</h2>
+        <p style="font-size:var(--text-lg);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-5)">
+          Parul Chemicals wants to be a global Innovative Solutions provider serving Pharmaceutical, Nutrition, Agrochemical, Consumer and Industrial customers with customised products and solutions that are innovative, cost-effective and conforming to excellent quality standards.
+        </p>
+        <p style="font-size:var(--text-base);color:var(--color-text-muted);line-height:1.7">
+          Parul Chemicals is committed to offering high-quality and innovative Plasticizers to enrich all forms of life.
+        </p>
+        <div style="margin-top:var(--space-8)">
+          <a href="/contact" class="btn btn-primary btn-lg">Connect Now</a>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-2xl);padding:var(--space-8);box-shadow:var(--shadow-card)">
+          <% [
+            {q:'What industries do you serve?',a:'Pharmaceutical, Agrochemical, Food & Nutrition, Personal Care, Cosmetics, Polymer and Industrial sectors.'},
+            {q:'Are your products GMP certified?',a:'Yes, all our products are manufactured under WHO-GMP and Schedule-M certified facilities with strict QC.'},
+            {q:'Do you offer custom synthesis?',a:'Absolutely. We can engineer custom molecular solutions tailored to your exact specifications from 50kg to 50MT.'}
+          ].forEach(function(faq,i){ %>
+          <div style="<%= i>0 ? 'border-top:1px solid var(--color-border);padding-top:var(--space-5);margin-top:var(--space-5)' : 'margin-bottom:var(--space-5)' %>">
+            <h4 style="font-size:var(--text-base);font-weight:700;color:var(--color-primary);margin-bottom:var(--space-2)"><%= faq.q %></h4>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6"><%= faq.a %></p>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
