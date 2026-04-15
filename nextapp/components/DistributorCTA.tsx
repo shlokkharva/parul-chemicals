@@ -83,7 +83,7 @@ export default function DistributorCTA() {
               Get in Touch
             </Link>
             <div className="text-sm text-slate-500 font-bold">
-              Authorized distributor? <span className="text-[#0EA5A0] cursor-pointer hover:underline ml-1">Login →</span>
+
             </div>
           </motion.div>
         </div>
