@@ -1,7 +1,7 @@
 'use client'
 import type { JSX } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 const FEATURES = [
   {
@@ -12,7 +12,7 @@ const FEATURES = [
     ),
     title: 'Uncompromising Purity',
     desc: 'Our chemicals meet USP, BP and food-grade purity standards with rigorous in-process QC at every batch.',
-    color: '#3ABEF9', // Brighter Cyan
+    color: '#3ABEF9', 
   },
   {
     icon: (
@@ -22,7 +22,7 @@ const FEATURES = [
     ),
     title: 'Quality Assurance',
     desc: 'ISO 9001:2015, GMP & HACCP certified operations — compliance with global quality standards is non-negotiable.',
-    color: '#4ADE80', // Brighter Green
+    color: '#4ADE80', 
   },
   {
     icon: (
@@ -33,7 +33,7 @@ const FEATURES = [
     ),
     title: 'Global Supply',
     desc: 'Reliable supply chain serving manufacturers in 8+ countries with consistent lead times and competitive pricing.',
-    color: '#60A5FA', // Light Blue
+    color: '#60A5FA', 
   },
   {
     icon: (
@@ -47,7 +47,7 @@ const FEATURES = [
     ),
     title: '9+ Certifications',
     desc: 'Kosher, Halal, ISO 22000, ISO 45001, ISO 9235 — our certifications open doors to regulated industries worldwide.',
-    color: '#FBBF24', // Brighter Amber
+    color: '#FBBF24', 
   },
 ]
 
@@ -100,11 +100,25 @@ const CERT_ICONS: Record<string, JSX.Element> = {
 }
 
 export default function CertificationsPreview() {
+  // Mouse tracking for 3D tilt
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  // Smooth springs for tilt
+  const springConfig = { damping: 30, stiffness: 120 }
+  const rotateX = useSpring(useTransform(mouseY, [0, 1000], [8, -8]), springConfig)
+  const rotateY = useSpring(useTransform(mouseX, [0, 1500], [-8, 8]), springConfig)
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    mouseX.set(e.clientX - rect.left)
+    mouseY.set(e.clientY - rect.top)
+  }
+
   return (
     <>
-      {/* ── WHY CHOOSE US — dark navy section (matches reference site) ── */}
+      {/* ── WHY CHOOSE US — dark navy section ── */}
       <section className="py-28 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #0D2137 0%, #1F4E79 100%)' }}>
-        {/* Subtle dot grid */}
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, rgba(77,168,218,0.6) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="absolute top-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, #4DA8DA, #0EA5A0, #4DA8DA)' }} />
 
@@ -132,17 +146,16 @@ export default function CertificationsPreview() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.12 }}
-                className="feature-card p-7 rounded-2xl group"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="feature-card p-7 rounded-2xl group transition-all duration-300"
                 style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)', backdropFilter: 'blur(12px)' }}
               >
-                {/* Icon block */}
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-lg"
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform"
                   style={{ background: f.color, color: 'white' }}>
                   {f.icon}
                 </div>
                 <h3 className="text-white font-bold text-lg mb-3">{f.title}</h3>
-                {/* Bullet points — matches reference site's teal dot list */}
-                <ul className="space-y-1.5">
+                <ul className="space-y-1.5 font-medium">
                   {f.desc.split(' — ').map((part, j) => (
                     <li key={j} className="flex items-start gap-2 text-sm text-white/65 leading-snug">
                       <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ background: '#4DA8DA' }} />
@@ -156,25 +169,61 @@ export default function CertificationsPreview() {
         </div>
       </section>
 
-      {/* ── CERTIFICATIONS STRIP — light section ── */}
-      <section className="py-20 hex-bg relative overflow-hidden grid-pattern">
-        {/* Floating Molecule Decor */}
-        <div className="absolute top-10 left-[10%] opacity-[0.05] pointer-events-none">
-          <svg width="120" height="120" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="15" fill="none" stroke="#4DA8DA" strokeWidth="1"/>
-            <circle cx="50" cy="20" r="5" fill="#4DA8DA" />
-            <circle cx="80" cy="50" r="5" fill="#4DA8DA" />
-            <line x1="50" y1="35" x2="50" y2="25" stroke="#4DA8DA" strokeWidth="1"/>
-            <line x1="65" y1="50" x2="75" y2="50" stroke="#4DA8DA" strokeWidth="1"/>
+      {/* ── CERTIFICATIONS STRIP — light section — UPDATED WITH 3D ORNAMENTS ── */}
+      <section 
+        onMouseMove={handleMouseMove}
+        className="py-24 hex-bg relative overflow-hidden grid-pattern perspective-1000 bg-white"
+      >
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] accent-blue-blob opacity-30 pointer-events-none" />
+
+        {/* INTERACTIVE 3D LATTICE DECOR (Left) */}
+        <motion.div 
+          style={{ rotateX, rotateY, perspective: 1000 }}
+          className="absolute top-10 left-[5%] opacity-[0.1] pointer-events-none hidden lg:block"
+        >
+          <svg width="300" height="300" viewBox="0 0 100 100" className="drop-shadow-2xl">
+            <path d="M50 10 L85 30 L85 70 L50 90 L15 70 L15 30 Z" fill="none" stroke="#4DA8DA" strokeWidth="0.8" />
+            <path d="M50 10 L50 90 M15 30 L85 70 M15 70 L85 30" stroke="#4DA8DA" strokeWidth="0.5" strokeDasharray="2 2" />
+            <circle cx="50" cy="10" r="2.5" fill="#4DA8DA" />
+            <circle cx="85" cy="30" r="2.5" fill="#4DA8DA" />
+            <circle cx="85" cy="70" r="2.5" fill="#4DA8DA" />
+            <circle cx="50" cy="90" r="2.5" fill="#4DA8DA" />
+            <circle cx="15" cy="70" r="2.5" fill="#4DA8DA" />
+            <circle cx="15" cy="30" r="2.5" fill="#4DA8DA" />
           </svg>
-        </div>
-        <div className="absolute bottom-10 right-[15%] opacity-[0.05] pointer-events-none">
-          <svg width="100" height="100" viewBox="0 0 100 100" className="animate-spin-slow">
-            <rect x="35" y="35" width="30" height="30" fill="none" stroke="#0EA5A0" strokeWidth="1" />
-            <circle cx="35" cy="35" r="3" fill="#0EA5A0" />
-            <circle cx="65" cy="65" r="3" fill="#0EA5A0" />
+        </motion.div>
+
+        {/* INTERACTIVE 3D ATOM DECOR (Right) */}
+        <motion.div 
+          style={{ rotateX, rotateY, perspective: 1000 }}
+          animate={{ rotate: -360 }}
+          transition={{ rotate: { duration: 60, repeat: Infinity, ease: "linear" } }}
+          className="absolute bottom-10 right-[8%] opacity-[0.1] pointer-events-none hidden lg:block"
+        >
+          <svg width="250" height="250" viewBox="0 0 100 100">
+            <ellipse cx="50" cy="50" rx="45" ry="18" fill="none" stroke="#0EA5A0" strokeWidth="0.8" />
+            <ellipse cx="50" cy="50" rx="45" ry="18" fill="none" stroke="#0EA5A0" strokeWidth="0.8" transform="rotate(60 50 50)" />
+            <ellipse cx="50" cy="50" rx="45" ry="18" fill="none" stroke="#0EA5A0" strokeWidth="0.8" transform="rotate(120 50 50)" />
+            <circle cx="50" cy="50" r="8" fill="#1F4E79" />
           </svg>
-        </div>
+        </motion.div>
+
+        {/* Reactive Particle System */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.1 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 2.5, opacity: 0.3, backgroundColor: '#4DA8DA' }}
+            className="absolute w-2 h-2 rounded-full border border-[#4DA8DA] pointer-events-auto cursor-none hidden lg:block"
+            style={{ 
+              top: `${(i * 18) % 70 + 15}%`, 
+              left: `${(i * 31) % 70 + 15}%`,
+              transition: 'all 0.4s ease'
+            }}
+          />
+        ))}
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div
@@ -187,12 +236,11 @@ export default function CertificationsPreview() {
             <h2 className="font-display text-4xl font-bold text-[#0F1C33] mb-3">
               International Quality Standards
             </h2>
-            <p className="text-[#4A5568] text-base max-w-lg mx-auto">
+            <p className="text-[#4A5568] text-base font-medium max-w-lg mx-auto">
               Certified by globally recognized bodies ensuring product purity, food safety and occupational health.
             </p>
           </motion.div>
 
-          {/* Cert grid — white glass cards on light bg */}
           <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4">
             {['ISO 9001:2015','ISO 22000:2018','ISO 45001:2018','ISO 9235:2013','GMP','HACCP','Kosher (TEC)','Kosher (DEP)','Registration'].map((name, i) => (
               <motion.div
@@ -200,12 +248,12 @@ export default function CertificationsPreview() {
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
-                className="cert-card bg-white border border-[#E2E8F0] rounded-2xl p-4 flex flex-col items-center gap-2 hover:border-[#4DA8DA]/40"
-                style={{ boxShadow: '0 2px 12px rgba(15,28,51,0.06)' }}
+                transition={{ delay: i * 0.05 }}
+                whileHover={{ y: -5, borderColor: '#4DA8DA' }}
+                className="cert-card bg-white border border-[#E2E8F0] rounded-2xl p-4 flex flex-col items-center gap-2 transition-all duration-300 shadow-sm"
               >
-                <span className="text-[#1F4E79]">{CERT_ICONS[name]}</span>
-                <span className="text-xs font-bold text-[#1F4E79] text-center leading-tight">{name}</span>
+                <span className="text-[#1F4E79] scale-110">{CERT_ICONS[name]}</span>
+                <span className="text-[11px] font-bold text-[#1F4E79] text-center leading-tight uppercase tracking-tight">{name}</span>
               </motion.div>
             ))}
           </div>
@@ -214,13 +262,13 @@ export default function CertificationsPreview() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-center mt-10"
+            className="text-center mt-12"
           >
             <Link href="/certifications"
-              className="px-8 py-3.5 rounded-full text-sm font-bold inline-flex items-center gap-2 transition-all duration-300 border-2 border-[#4DA8DA] text-[#1F4E79] hover:bg-[#4DA8DA] hover:text-white"
+              className="px-8 py-3.5 rounded-full text-sm font-bold inline-flex items-center gap-2 transition-all duration-300 border-2 border-[#4DA8DA] text-[#1F4E79] hover:bg-[#4DA8DA] hover:text-white shadow-lg shadow-blue-500/5"
             >
               View All Certifications
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </Link>
