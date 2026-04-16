@@ -5,46 +5,25 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 const FEATURES = [
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-        <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
-      </svg>
-    ),
+    video: '/videos/Uncompromising_Purity.mp4',
     title: 'Uncompromising Purity',
     desc: 'Our chemicals meet USP, BP and food-grade purity standards with rigorous in-process QC at every batch.',
     color: '#3ABEF9', 
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-      </svg>
-    ),
+    video: '/videos/Quality_and_Compliance.mp4',
     title: 'Quality Assurance',
     desc: 'ISO 9001:2015, GMP & HACCP certified operations — compliance with global quality standards is non-negotiable.',
     color: '#4ADE80', 
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-      </svg>
-    ),
+    video: '/videos/Global_Supply_Chain_Strength.mp4',
     title: 'Global Supply',
     desc: 'Reliable supply chain serving manufacturers in 8+ countries with consistent lead times and competitive pricing.',
     color: '#60A5FA', 
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/>
-        <line x1="16" y1="17" x2="8" y2="17"/>
-        <polyline points="10 9 9 9 8 9"/>
-      </svg>
-    ),
+    video: '/videos/global reach.mp4',
     title: '9+ Certifications',
     desc: 'Kosher, Halal, ISO 22000, ISO 45001, ISO 9235 — our certifications open doors to regulated industries worldwide.',
     color: '#FBBF24', 
@@ -146,23 +125,37 @@ export default function CertificationsPreview() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.12 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="feature-card p-7 rounded-2xl group transition-all duration-300"
-                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)', backdropFilter: 'blur(12px)' }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="feature-card min-h-[320px] rounded-2xl group transition-all duration-500 overflow-hidden relative flex flex-col justify-end p-8"
+                style={{ border: '1px solid rgba(255,255,255,0.10)' }}
               >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform"
-                  style={{ background: f.color, color: 'white' }}>
-                  {f.icon}
+                {/* Full Card Video Background */}
+                <div className="absolute inset-0 z-0">
+                  <video
+                    src={f.video}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover transition-all duration-700 scale-110 group-hover:scale-100 opacity-60 group-hover:opacity-100"
+                  />
+                  {/* Dark Overlay for Text Readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D2137] via-[#0D2137]/60 to-transparent z-10" />
+                  <div className="absolute inset-0 bg-[#0D2137]/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
                 </div>
-                <h3 className="text-white font-bold text-lg mb-3">{f.title}</h3>
-                <ul className="space-y-1.5 font-medium">
-                  {f.desc.split(' — ').map((part, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-white/65 leading-snug">
-                      <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ background: '#4DA8DA' }} />
-                      {part}
-                    </li>
-                  ))}
-                </ul>
+
+                {/* Text Content */}
+                <div className="relative z-20">
+                  <h3 className="text-white font-bold text-xl mb-3 transform group-hover:-translate-y-1 transition-transform duration-300">{f.title}</h3>
+                  <ul className="space-y-2 font-medium">
+                    {f.desc.split(' — ').map((part, j) => (
+                      <li key={j} className="flex items-start gap-2 text-sm text-white/80 group-hover:text-white leading-snug transition-colors duration-300">
+                        <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ background: '#4DA8DA' }} />
+                        {part}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -241,21 +234,42 @@ export default function CertificationsPreview() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4">
-            {['ISO 9001:2015','ISO 22000:2018','ISO 45001:2018','ISO 9235:2013','GMP','HACCP','Kosher (TEC)','Kosher (DEP)','Registration'].map((name, i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, scale: 0.85 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                whileHover={{ y: -5, borderColor: '#4DA8DA' }}
-                className="cert-card bg-white border border-[#E2E8F0] rounded-2xl p-4 flex flex-col items-center gap-2 transition-all duration-300 shadow-sm"
-              >
-                <span className="text-[#1F4E79] scale-110">{CERT_ICONS[name]}</span>
-                <span className="text-[11px] font-bold text-[#1F4E79] text-center leading-tight uppercase tracking-tight">{name}</span>
-              </motion.div>
-            ))}
+          <div className="flex flex-col gap-4">
+            {/* First Row: 5 Certifications */}
+            <div className="flex flex-wrap justify-center gap-4">
+              {['ISO 9001:2015','ISO 22000:2018','ISO 45001:2018','ISO 9235:2013','GMP'].map((name, i) => (
+                <motion.div
+                  key={name}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  whileHover={{ y: -5, borderColor: '#4DA8DA' }}
+                  className="cert-card w-[160px] bg-white border border-[#E2E8F0] rounded-2xl p-4 flex flex-col items-center gap-2 transition-all duration-300 shadow-sm"
+                >
+                  <span className="text-[#1F4E79] scale-110">{CERT_ICONS[name]}</span>
+                  <span className="text-[11px] font-bold text-[#1F4E79] text-center leading-tight uppercase tracking-tight">{name}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Second Row: 4 Certifications (Centered) */}
+            <div className="flex flex-wrap justify-center gap-4">
+              {['HACCP','Kosher (TEC)','Kosher (DEP)','Registration'].map((name, i) => (
+                <motion.div
+                  key={name}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (i + 5) * 0.05 }}
+                  whileHover={{ y: -5, borderColor: '#4DA8DA' }}
+                  className="cert-card w-[160px] bg-white border border-[#E2E8F0] rounded-2xl p-4 flex flex-col items-center gap-2 transition-all duration-300 shadow-sm"
+                >
+                  <span className="text-[#1F4E79] scale-110">{CERT_ICONS[name]}</span>
+                  <span className="text-[11px] font-bold text-[#1F4E79] text-center leading-tight uppercase tracking-tight">{name}</span>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
           <motion.div

@@ -4,9 +4,9 @@ import { SITE, NAV } from '@/lib/data'
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#0D2137', borderTop: '1px solid rgba(255,255,255,0.05)' }} className="pt-6 pb-2">
+    <footer style={{ background: '#0D2137', borderTop: '1px solid rgba(255,255,255,0.05)' }} className="pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-2">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
 
           {/* Brand */}
           <div className="md:col-span-2">
@@ -18,7 +18,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-3 mt-2">
               {[
-                { label: 'LinkedIn', href: '#', icon: 'in' },
+                { label: 'LinkedIn', href: 'https://www.linkedin.com/company/parul-chemicals/', icon: 'in' },
                 { label: 'WhatsApp', href: `https://wa.me/919427784082`, icon: 'W' },
               ].map(s => (
                 <a
@@ -80,7 +80,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-2 flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
           <p className="text-xs text-white/30">
             © {new Date().getFullYear()} Parul Chemicals. All rights reserved.
           </p>

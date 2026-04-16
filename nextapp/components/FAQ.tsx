@@ -22,7 +22,7 @@ const FAQS = [
 ]
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   // Mouse tracking for 3D tilt
   const mouseX = useMotionValue(0)
