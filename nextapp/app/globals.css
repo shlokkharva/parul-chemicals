@@ -34,6 +34,12 @@ body {
   color: var(--text);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  user-select: none;
+}
+input, textarea, select {
+  -webkit-user-select: auto;
+  user-select: auto;
 }
 
 /* ═══════════════════════════════════════
@@ -197,8 +203,20 @@ body:has(button:hover) .cursor-ring {
 /* ═══════════════════════════════════════
    SWIPER PAGINATION
 ═══════════════════════════════════════ */
-.swiper-pagination-bullet { background: rgba(255,255,255,0.4) !important; }
-.swiper-pagination-bullet-active { background: var(--blue) !important; width: 24px !important; border-radius: 9999px !important; }
+.swiper-pagination-bullet { 
+  background: rgba(255,255,255,0.7) !important; 
+  width: 12px !important;
+  height: 12px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  opacity: 1 !important;
+  margin: 0 6px !important;
+}
+.swiper-pagination-bullet-active { 
+  background: var(--blue) !important; 
+  width: 32px !important; 
+  border-radius: 9999px !important; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
 
 /* ═══════════════════════════════════════
    BUTTONS

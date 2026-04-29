@@ -1,6 +1,6 @@
 import HeroSlider from '@/components/hero/HeroSlider'
 import ProductsSection from '@/components/products/ProductsSection'
-import AboutPreview from '@/components/AboutPreview'
+import TechnicalInsights from '@/components/TechnicalInsights'
 import CertificationsPreview from '@/components/CertificationsPreview'
 import DistributorCTA from '@/components/DistributorCTA'
 import GlobalPartners from '@/components/GlobalPartners'
@@ -12,6 +12,7 @@ export default function HomePage() {
     <>
       <HeroSlider />
       <ProductsSection />
+      <TechnicalInsights />
       <CertificationsPreview />
       <Testimonials />
       <FAQ />

@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { TIMELINE, STATS, PHILOSOPHY, CORE_PILLARS } from '@/lib/data'
+import { TIMELINE, STATS, PHILOSOPHY, CORE_PILLARS, EXPORT_COUNTRIES } from '@/lib/data'
 import PageHero from '@/components/PageHero'
 
 export default function AboutPage() {
@@ -164,6 +164,75 @@ export default function AboutPage() {
                 <p className="text-xs text-[#4A5568] leading-relaxed font-medium">{pillar.desc}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Global Footprint Section */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <svg width="100%" height="100%">
+            <pattern id="world-dots" width="40" height="40" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.5" fill="#4DA8DA" />
+            </pattern>
+            <rect width="100%" height="100%" fill="url(#world-dots)" />
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="lg:w-1/2">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <p className="section-tag mb-4">GLOBAL REACH</p>
+                <h2 className="text-3xl md:text-5xl font-bold text-[#0F1C33] leading-tight mb-6">
+                  Serving Industries <br/>
+                  <span className="text-[#4DA8DA]">Across the Globe</span>
+                </h2>
+                <p className="text-[#4A5568] leading-relaxed mb-8 max-w-xl">
+                  Parul Chemicals has established a strong international presence, delivering high-purity Triethyl Citrate and Diethyl Phthalate to diverse markets. Our commitment to quality and regulatory compliance (USP/FCC/REACH) has made us a trusted partner for global manufacturers.
+                </p>
+                <div className="inline-flex items-center gap-4 p-4 rounded-3xl bg-[#F0F9FF] border border-[#4DA8DA]/20">
+                  <div className="w-12 h-12 rounded-2xl bg-[#4DA8DA] flex items-center justify-center text-white shadow-lg">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-[#0F1C33]">Trusted Supplier</p>
+                    <p className="text-xs text-[#4A5568]">Reach out to us now for global inquiries!</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+            
+            <div className="lg:w-1/2 w-full">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {EXPORT_COUNTRIES.map((country, i) => (
+                  <motion.div
+                    key={country.name}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.05 }}
+                    whileHover={{ y: -5, borderColor: '#4DA8DA' }}
+                    className="flex flex-col items-center justify-center p-6 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-md transition-all group"
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center mb-3 group-hover:bg-[#4DA8DA]/10 transition-colors">
+                      <img 
+                        src={`https://flagcdn.com/w80/${country.code.toLowerCase()}.png`} 
+                        alt={country.name}
+                        className="w-8 h-auto rounded shadow-sm"
+                      />
+                    </div>
+                    <p className="text-xs font-bold text-[#0F1C33] group-hover:text-[#4DA8DA] transition-colors">{country.name}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

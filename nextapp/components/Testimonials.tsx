@@ -1,69 +1,71 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion'
 
-const REVIEWS = [
-  {
-    name: 'Sophie Lefebvre',
-    role: 'Operations Manager',
-    company: 'EuroChem Distribution',
-    location: 'Lyon, France',
-    text: "Parul Chemicals is a dependable pillar in our luxury fragrance supply chain. Their DEP purity levels are consistently superior for the EU market.",
-    avatar: 'SL',
-    image: '/images/reviews/sophie.webp'
-  },
-  {
-    name: 'Hans Müller',
-    role: 'Quality Assurance',
-    company: 'Rheinland Pharma',
-    location: 'Mannheim, Germany',
-    text: "For our strict European pharmaceutical standards, Parul's DEP has passed every lab test with flying colors. A reliable global manufacturer.",
-    avatar: 'HM',
-    image: '/images/reviews/hans.webp'
-  },
-  {
-    name: 'Marco Rossi',
-    role: 'Purchasing Director',
-    company: 'Milan Flavors',
-    location: 'Milan, Italy',
-    text: "The Triethyl Citrate from Parul Chemicals is of exceptional quality. It has become a key stabilizer in our high-end food-grade formulations.",
-    avatar: 'MR',
-    image: '/images/reviews/marco.webp'
-  },
-  {
-    name: 'Jan de Vries',
-    role: 'Procurement Manager',
-    company: 'Dutch Chemical Trading',
-    location: 'Rotterdam, Netherlands',
-    text: "Seamless logistics into the Port of Rotterdam and flawless REACH documentation. They are our most trusted partner for DEP imports.",
-    avatar: 'JV',
-    image: '/images/reviews/jan.webp'
-  },
-  {
-    name: 'James Whitmore',
-    role: 'Technical Director',
-    company: 'British Pharma Labs',
-    location: 'London, UK',
-    text: "Their DEP exceeds our stringent British Pharmacopoeia (BP) standards. Parul Chemicals stands out for their technical transparency.",
-    avatar: 'JW',
-    image: '/images/reviews/james.webp'
-  },
-  {
-    name: 'Dr. Lukas Steiner',
-    role: 'Global Sourcing',
-    company: 'Swiss Bio-Pharma',
-    location: 'Basel, Switzerland',
-    text: "REACH compliance and documentation excellence. We trust Parul for our sensitive global formulations across our European sites.",
-    avatar: 'LS',
-    image: '/images/reviews/lukas.webp'
-  }
-]
+interface Review {
+  id?: number;
+  name: string;
+  role: string;
+  company: string;
+  location: string;
+  text: string;
+  stars: number;
+  avatar?: string;
+  image?: string;
+}
 
 export default function Testimonials() {
+  const [reviews, setReviews] = useState<Review[]>([])
   const [showAll, setShowAll] = useState(false)
-  
+  const [showForm, setShowForm] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [newReview, setNewReview] = useState<Review>({
+    name: '',
+    role: '',
+    company: '',
+    location: '',
+    text: '',
+    stars: 5
+  })
+
+  useEffect(() => {
+    fetchReviews()
+  }, [])
+
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch('/api/reviews')
+      const data = await res.json()
+      setReviews(data)
+    } catch (error) {
+      console.error('Error fetching reviews:', error)
+    }
+  }
+
+  const handleAddReview = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    try {
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newReview)
+      })
+      if (res.ok) {
+        await fetchReviews()
+        setShowForm(false)
+        setNewReview({ name: '', role: '', company: '', location: '', text: '', stars: 5 })
+      }
+    } catch (error) {
+      console.error('Error adding review:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   // Choose reviews to display
-  const visibleReviews = showAll ? REVIEWS : REVIEWS.slice(0, 3)
+  const visibleReviews = showAll ? reviews : reviews.slice(0, 3)
 
   // Mouse tracking for 3D tilt
   const mouseX = useMotionValue(0)
@@ -139,7 +141,7 @@ export default function Testimonials() {
           <AnimatePresence>
             {visibleReviews.map((review, i) => (
               <motion.div
-                key={review.name}
+                key={review.id || review.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
@@ -165,7 +167,7 @@ export default function Testimonials() {
                         }}
                       />
                     ) : (
-                      <span>{review.avatar}</span>
+                      <span>{review.avatar || review.name.charAt(0)}</span>
                     )}
                   </div>
                   <div>
@@ -186,7 +188,14 @@ export default function Testimonials() {
                 
                 <div className="mt-6 flex gap-1">
                   {[...Array(5)].map((_, j) => (
-                    <svg key={j} width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" className="opacity-80">
+                    <svg 
+                      key={j} 
+                      width="12" 
+                      height="12" 
+                      viewBox="0 0 24 24" 
+                      fill={j < review.stars ? "#FBBF24" : "rgba(255,255,255,0.1)"} 
+                      className={j < review.stars ? "opacity-80" : ""}
+                    >
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                     </svg>
                   ))}
@@ -196,18 +205,133 @@ export default function Testimonials() {
           </AnimatePresence>
         </div>
 
-        {/* View More Button */}
-        {REVIEWS.length > 3 && (
-          <div className="mt-16 text-center">
+        {/* Actions */}
+        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
+          {reviews.length > 3 && (
             <button
               onClick={() => setShowAll(!showAll)}
               className="px-10 py-4 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 border-2 border-[#4DA8DA]/30 text-white hover:border-[#4DA8DA] hover:bg-[#4DA8DA] shadow-lg shadow-blue-500/10"
             >
               {showAll ? 'Show Less' : 'View All Global Reviews'}
             </button>
+          )}
+          <button 
+            onClick={() => setShowForm(true)}
+            className="px-10 py-4 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 bg-[#F59E0B] text-white hover:bg-[#D97706] shadow-lg shadow-orange-500/20"
+          >
+            Add a Review
+          </button>
+        </div>
+      </div>
+
+      {/* Review Modal */}
+      <AnimatePresence>
+        {showForm && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowForm(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-lg bg-[#0D2137] border border-white/10 rounded-[2.5rem] p-8 sm:p-12 shadow-2xl overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-6">
+                <button onClick={() => setShowForm(false)} className="text-white/40 hover:text-white transition-colors">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+              </div>
+
+              <h3 className="text-2xl font-bold text-white mb-2">Write a Review</h3>
+              <p className="text-white/50 text-sm mb-8">Share your experience with our products and service.</p>
+
+              <form onSubmit={handleAddReview} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input
+                    required
+                    type="text"
+                    placeholder="Your Name"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3 text-white placeholder:text-white/20 focus:border-[#4DA8DA] outline-none transition-all"
+                    value={newReview.name}
+                    onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+                  />
+                  <input
+                    required
+                    type="text"
+                    placeholder="Location (e.g. London, UK)"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3 text-white placeholder:text-white/20 focus:border-[#4DA8DA] outline-none transition-all"
+                    value={newReview.location}
+                    onChange={(e) => setNewReview({ ...newReview, location: e.target.value })}
+                  />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input
+                    required
+                    type="text"
+                    placeholder="Role"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3 text-white placeholder:text-white/20 focus:border-[#4DA8DA] outline-none transition-all"
+                    value={newReview.role}
+                    onChange={(e) => setNewReview({ ...newReview, role: e.target.value })}
+                  />
+                  <input
+                    required
+                    type="text"
+                    placeholder="Company"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3 text-white placeholder:text-white/20 focus:border-[#4DA8DA] outline-none transition-all"
+                    value={newReview.company}
+                    onChange={(e) => setNewReview({ ...newReview, company: e.target.value })}
+                  />
+                </div>
+                
+                <textarea
+                  required
+                  placeholder="Your Review"
+                  rows={4}
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3 text-white placeholder:text-white/20 focus:border-[#4DA8DA] outline-none transition-all resize-none"
+                  value={newReview.text}
+                  onChange={(e) => setNewReview({ ...newReview, text: e.target.value })}
+                />
+
+                <div className="flex items-center gap-4 py-2">
+                  <span className="text-white/50 text-sm">Rating:</span>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setNewReview({ ...newReview, stars: star })}
+                        className="transition-transform hover:scale-110"
+                      >
+                        <svg 
+                          width="24" 
+                          height="24" 
+                          viewBox="0 0 24 24" 
+                          fill={star <= newReview.stars ? "#FBBF24" : "rgba(255,255,255,0.1)"}
+                        >
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button
+                  disabled={isSubmitting}
+                  type="submit"
+                  className="w-full btn-primary py-4 rounded-2xl text-lg font-bold shadow-xl shadow-orange-500/20 disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit Review'}
+                </button>
+              </form>
+            </motion.div>
           </div>
         )}
-      </div>
+      </AnimatePresence>
     </section>
   )
 }

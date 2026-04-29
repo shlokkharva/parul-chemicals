@@ -49,8 +49,8 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
           <div className="absolute inset-0 bg-gradient-to-t from-white/30 via-transparent to-transparent" />
           {/* Badge */}
           <div
-            className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide"
-            style={{ background: `${product.color}18`, border: `1.5px solid ${product.color}45`, color: product.color }}
+            className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide shadow-sm"
+            style={{ background: 'rgba(255, 255, 255, 0.95)', border: `1.5px solid ${product.color}`, color: '#0F1C33' }}
           >
             {product.badge}
           </div>
@@ -84,9 +84,10 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
             <button
               className="flex-1 py-2.5 rounded-xl text-sm font-bold text-center transition-all duration-300"
               style={{
-                background: `linear-gradient(135deg, ${product.color}18, ${product.color}0A)`,
-                border: `1.5px solid ${product.color}40`,
-                color: product.color,
+                background: `linear-gradient(135deg, ${product.color}, ${product.color}DD)`,
+                border: `1.5px solid ${product.color}`,
+                color: '#FFFFFF',
+                textShadow: '0 1px 2px rgba(0,0,0,0.1)'
               }}
             >
               View Detailed Specs

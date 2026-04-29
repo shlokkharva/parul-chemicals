@@ -78,9 +78,9 @@ export const PRODUCTS = [
       { q: "Where is DEP found in consumer products?", a: "It is found in cosmetics, personal care products, fragrances, and some insect repellents due to its solvency and fixative properties." },
       { q: "Is DEP safe for use in fragrances?", a: "Yes, it is commonly used as a carrier for fragrances, helping to prolong the scent of perfumes and colognes." }
     ],
-    msds: 'https://parulchemicals.com/wp-content/uploads/2024/02/MSDS-DEP.pdf',
-    tds: '#',
-    coa: '#'
+    msds: '/tds,coa,msds/MSDS - DEP.pdf',
+    tds: '/tds,coa,msds/DiEthy_l-phthalate-PDS.pdf',
+    coa: '/tds,coa,msds/COA-DEP (1).pdf'
   },
   {
     id: 'tec',
@@ -92,7 +92,7 @@ export const PRODUCTS = [
     image: '/products/triethylcitrate.webp',
     color: '#00C9A7',
     apps: 'Pharma · Food · Personal Care',
-    desc: 'Triethyl Citrate (TEC) is a premium ester of citric acid, widely recognized as a non-toxic, biodegradable, and food-safe plasticizer. It is a colorless, odorless liquid used extensively as a food additive (E1505) and stabilizer. Its excellent compatibility with diverse polymers makes it a crucial ingredient in pharmaceutical film coatings and sustainable packaging.',
+    desc: 'Triethyl Citrate (TEC) is a premium ester of citric acid, widely recognized as a non-toxic, biodegradable, and food-safe plasticizer. It is the preferred non-phthalate alternative to DEP, widely used as a fixative and stabilizer in industries where safety and high regulatory compliance (USP/FCC) are required.',
     features: [
       'Non-Toxic & Biodegradable',
       'FDA/USP/BP/IP Compliant',
@@ -152,9 +152,9 @@ export const PRODUCTS = [
       { q: "What are the environmental benefits of TEC?", a: "TEC is biodegradable and poses minimal risk to ecosystems, contributing to sustainable manufacturing practices." },
       { q: "Does TEC have any odor or color?", a: "No, TEC is completely odorless and colorless, making it ideal for applications where sensory attributes are important." }
     ],
-    msds: 'https://parulchemicals.com/wp-content/uploads/2024/02/parul_chemical_msds.pdf',
-    tds: '#',
-    coa: '#'
+    msds: '/tds,coa,msds/MSDS - TEC 31.01.25 Revised (2).pdf',
+    tds: '/tds,coa,msds/TDS - Technical Data Sheet (1) (2).pdf',
+    coa: '/tds,coa,msds/COA for approval (1) (1).pdf'
   },
 ]
 
@@ -168,6 +168,8 @@ export const CERTIFICATIONS = [
   { id: 'kosher1',    name: 'Kosher (TEC)',       desc: 'Triethyl Citrate — Kosher Certified',          image: '/certificates/kosher1.webp' },
   { id: 'kosher2',    name: 'Kosher (DEP)',       desc: 'Diethyl Phthalate — Kosher Certified',         image: '/certificates/kosher2.webp' },
   { id: 'reg',        name: 'Registration',       desc: 'Government Business Registration Certificate', image: '/certificates/registrationcerti.webp' },
+  { id: 'halal',      name: 'Halal Certified',    desc: 'Jamiat Ulama-i-Hind Halal Trust',             image: '/certificates/halal.webp' },
+  { id: 'halal_doc',  name: 'Halal Compliance',   desc: 'Halal Certification Confirmation',            image: '/certificates/juth.webp' },
 ]
 
 export const PHILOSOPHY = {
@@ -236,8 +238,19 @@ export const TIMELINE = [
 export const STATS = [
   { val: '15+', label: 'Years of Excellence' },
   { val: '500+', label: 'Clients Served' },
-  { val: '9',  label: 'International Certifications' },
+  { val: '11+', label: 'International Certifications' },
   { val: '8+', label: 'Export Countries' },
+]
+
+export const EXPORT_COUNTRIES = [
+  { name: 'USA', code: 'US' },
+  { name: 'Indonesia', code: 'ID' },
+  { name: 'Malaysia', code: 'MY' },
+  { name: 'Singapore', code: 'SG' },
+  { name: 'France', code: 'FR' },
+  { name: 'Argentina', code: 'AR' },
+  { name: 'Spain', code: 'ES' },
+  { name: 'India', code: 'IN' },
 ]
 
 export const NAV = [
@@ -246,3 +259,30 @@ export const NAV = [
   { label: 'Products',       href: '/products' },
   { label: 'Certifications', href: '/certifications' },
 ]
+export const FS_CALCIVAL_DATA = {
+  name: 'F. S. Calcival',
+  tagline: 'Enhancing animal health, Maximizing productivity',
+  description: 'Welcome to a new era in animal nutrition with FS Calcival, the premium oral supplement by Parul Chemicals! F. S. Calcival is not just calcium; it’s more effective, more powerful. While regular calcium supplements can boost energy levels in animals, F. S. Calcival goes above and beyond.',
+  longDescription: 'It is a multi-vitamin and calcium formulation that not only enhances energy but also bolsters immunity in animals. For dairy cattle (cows, buffalo, and goats), it plays a pivotal role in increasing milk production.',
+  benefits: [
+    { title: 'Scientifically Proven Results', desc: 'Negates adverse effects like weight loss or irregular heat cycles common in traditional supplements.' },
+    { title: 'Increased Milk Production', desc: 'Noticeable rise in quantity and quality within 10-20 days.' },
+    { title: 'Improved SNF Levels', desc: 'Ensures milk meets dairy standards even during summer months.' },
+    { title: 'Economic Advantage', desc: 'Minimal investment yielding high monthly profits for farmers.' }
+  ],
+  packaging: [
+    { size: '1 Litre', type: 'Plastic Jar', image: '/f.s calcival/bin size/1L Plastic Jar.webp' },
+    { size: '5 Litre', type: 'Plastic Jar', image: '/f.s calcival/bin size/5L Plastic Jar.webp' },
+    { size: '5 Litre', type: 'Steel Barni', image: '/f.s calcival/bin size/5L Steel Jar.webp' },
+    { size: '10 Litre', type: 'Steel Barni', image: '/f.s calcival/bin size/10L Steel Jar.webp' },
+    { size: '20 Litre', type: 'Plastic Can', image: '/f.s calcival/bin size/20 L Can.webp' }
+  ],
+  brochures: [
+    { lang: 'English', url: '/f.s calcival/brochure/1_Registered Work.pdf' },
+    { lang: 'Hindi', url: '/f.s calcival/brochure/brochure hindi.pdf' }
+  ],
+  dosage: [
+    { stage: 'Progenated Animals', instruction: '50ml doses, morning and evening, from one week after delivery until 5 months.' },
+    { stage: 'Pregnant Animals', instruction: '20 to 40ml daily as per advice to boost overall health and calf health.' }
+  ]
+}

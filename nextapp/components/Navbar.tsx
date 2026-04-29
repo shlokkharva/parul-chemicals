@@ -28,13 +28,13 @@ export default function Navbar() {
             : 'bg-gradient-to-b from-black/40 via-black/10 to-transparent py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
+        <div className={`max-w-7xl mx-auto px-6 flex items-center justify-between transition-all duration-500 ${scrolled ? 'h-[72px]' : 'h-[110px]'}`}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <img 
               src="/parul_logo.webp" 
               alt="Parul Chemicals" 
-              className="h-11 w-auto object-contain transition-all duration-300 drop-shadow-[0_0_10px_rgba(255,255,255,0.4)] group-hover:scale-105" 
+              className={`w-auto object-contain transition-all duration-500 drop-shadow-[0_0_10px_rgba(255,255,255,0.4)] group-hover:scale-105 ${scrolled ? 'h-16' : 'h-28'}`} 
             />
           </Link>
 

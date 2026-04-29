@@ -26,9 +26,9 @@ export default function HeroSlider() {
           modules: [Autoplay, EffectFade, Pagination],
           effect: 'fade',
           fadeEffect: { crossFade: true },
-          autoplay: { delay: 4500, disableOnInteraction: false },
+          autoplay: { delay: 8000, disableOnInteraction: false },
           loop: true,
-          speed: 1200,
+          speed: 1600,
           pagination: { el: '.swiper-pagination', clickable: true },
         })
       })
@@ -105,7 +105,7 @@ export default function HeroSlider() {
             >
               Welcome to<br />
               <span style={{ color: '#4DA8DA' }}>Parul Chemicals.</span><br />
-              <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl opacity-90">Innovative Solutions.</span>
+              <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl opacity-90">Precision Chemistry.</span>
             </motion.h1>
 
             <motion.p
@@ -147,7 +147,7 @@ export default function HeroSlider() {
               className="grid grid-cols-2 sm:flex sm:gap-8 gap-y-6 mt-10 pt-6"
               style={{ borderTop: '1px solid rgba(255,255,255,0.12)' }}
             >
-              {[['15+','Years'], ['500+','Clients'], ['9','Certifications'], ['8+','Countries']].map(([v, l]) => (
+              {[['15+','Years'], ['500+','Clients'], ['9+','Certifications'], ['8+','Countries']].map(([v, l]) => (
                 <div key={l} className="text-center sm:text-left">
                   <div className="text-xl sm:text-2xl font-black text-white tracking-tight">{v}</div>
                   <div className="text-[10px] sm:text-xs text-white/40 font-medium mt-1">{l}</div>
