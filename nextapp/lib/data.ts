@@ -168,7 +168,7 @@ export const CERTIFICATIONS = [
   { id: 'kosher1',    name: 'Kosher (TEC)',       desc: 'Triethyl Citrate — Kosher Certified',          image: '/certificates/kosher1.webp' },
   { id: 'kosher2',    name: 'Kosher (DEP)',       desc: 'Diethyl Phthalate — Kosher Certified',         image: '/certificates/kosher2.webp' },
   { id: 'reg',        name: 'Registration',       desc: 'Government Business Registration Certificate', image: '/certificates/registrationcerti.webp' },
-  { id: 'halal',      name: 'Halal Certified',    desc: 'Jamiat Ulama-i-Hind Halal Trust',             image: '/certificates/halal.webp' },
+  { id: 'halal',      name: 'Halal Certified',    desc: 'Jamiat Ulama-i-Hind Halal Trust',             image: '/certificates/Halal.webp' },
   { id: 'halal_doc',  name: 'Halal Compliance',   desc: 'Halal Certification Confirmation',            image: '/certificates/juth.webp' },
 ]
 

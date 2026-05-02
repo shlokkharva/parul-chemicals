@@ -14,10 +14,10 @@ export default function HomePage() {
       <ProductsSection />
       <TechnicalInsights />
       <CertificationsPreview />
-      <Testimonials />
-      <FAQ />
       <GlobalPartners />
       <DistributorCTA />
+      <Testimonials />
+      <FAQ />
     </>
   )
 }

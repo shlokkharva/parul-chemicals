@@ -63,9 +63,10 @@ export async function POST(req: Request) {
     // Note: If credentials are not set, this will fail. 
     // We wrap it in a try-catch to ensure the API doesn't crash.
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+      const receiver = process.env.RECEIVER_EMAIL || 'info@parulchemicals.in';
       await transporter.sendMail({
         from: `"Parul Chemicals Web" <${process.env.EMAIL_USER}>`,
-        to: 'shlokkharva@gmail.com',
+        to: receiver,
         subject: subject,
         html: htmlContent,
       })
