@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer style={{ background: '#0D2137', borderTop: '1px solid rgba(255,255,255,0.05)' }} className="pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-16">
 
           {/* Brand */}
           <div className="md:col-span-2">
@@ -48,6 +48,33 @@ export default function Footer() {
               <li>
                 <Link href="/fs-calcival" className="text-sm text-white/50 hover:text-white transition-colors">
                   F.S. Calcival
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal Links */}
+          <div>
+            <h4 className="text-xs font-bold tracking-widest uppercase text-[#4DA8DA] mb-2">Legal</h4>
+            <ul className="space-y-1">
+              <li>
+                <Link href="/privacy-policy" className="text-sm text-white/50 hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms-and-conditions" className="text-sm text-white/50 hover:text-white transition-colors">
+                  Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link href="/refund-policy" className="text-sm text-white/50 hover:text-white transition-colors">
+                  Refund Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/shipping-policy" className="text-sm text-white/50 hover:text-white transition-colors">
+                  Shipping Policy
                 </Link>
               </li>
             </ul>
